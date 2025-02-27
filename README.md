@@ -1,9 +1,4 @@
-Building Tetris in Python: Step-by-Step Guide
-
-Prerequisites:
--Python 3.x
--Pygame library
-
+Remaking Tetris in Python:
 Development Steps
 1. Setting Up the Environment
 Imported necessary libraries: pygame for graphics, random for generating random pieces, and time for timing functions
