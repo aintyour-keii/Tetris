@@ -1,5 +1,4 @@
 Building Tetris in Python: Step-by-Step Guide
-This README documents the process of recreating the classic game Tetris using Python and the Pygame library. The implementation includes all standard Tetris mechanics along with modern features like piece holding, ghost pieces, and wall kicks.
 
 Prerequisites:
 -Python 3.x
