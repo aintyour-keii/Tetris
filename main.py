@@ -1,3 +1,4 @@
+#MODULES
 import pygame
 import random
 import time
@@ -26,7 +27,7 @@ BASE_DROP_SPEED = 500
 MIN_DROP_SPEED = 100
 LOCK_DELAY = 500 # Delay in locking the block in place
 
-# SHAPES OF BLOCKS
+#SHAPES OF BLOCKS
 SHAPES = [
     [[1,1,1,1]], # I - Cyan
     [[1,1],[1,1]], # O - Yellow
@@ -104,26 +105,26 @@ def rotate_with_wall_kick(grid, block):
     block.shape = orig_shape
     return False
 
-# Merge Block to Grid
+#Merge Block to Grid
 def merge_block(grid, block):
     for y, row in enumerate(block.shape):
         for x, cell in enumerate(row):
             if cell:
                 grid[block.y + y][block.x + x] = block.color
 
-# Clear Full Lines
+#Clear Full Lines
 def clear_lines(grid, score):
     new_grid = [row for row in grid if any(cell == 0 for cell in row)]
     lines_cleared = ROWS - len(new_grid)
     score += lines_cleared * 100
     return [[0]* COLUMNS for _ in range(lines_cleared)] + new_grid, score
 
-# Calculate Drop Speed based on score
+#Calculate Drop Speed based on score
 def calculate_drop_speed(score):
     speed = BASE_DROP_SPEED - (score // 1000) * 50
     return max(speed, MIN_DROP_SPEED)
 
-# Draw grid
+#Draw grid
 def draw_grid(screen):
     for x in range(0, COLUMNS * GRID_SIZE + 1, GRID_SIZE):
         pygame.draw.line(screen, GRAY, (x + GRID_OFFSET_X, 0), (x + GRID_OFFSET_X, HEIGHT))
@@ -131,7 +132,7 @@ def draw_grid(screen):
     for y in range(0, HEIGHT + 1, GRID_SIZE):
         pygame.draw.line(screen, GRAY, (GRID_OFFSET_X, y), (GRID_OFFSET_X + COLUMNS * GRID_SIZE, y))
 
-# Draw Block Shadow -- Drop Location
+#Draw Block Shadow -- Drop Location
 def draw_shadow(screen, grid, piece):
     shadow = Tetrimono(shape=piece.shape, color=piece.color)
     shadow.x, shadow.y = piece.x, piece.y
@@ -144,14 +145,14 @@ def draw_shadow(screen, grid, piece):
             if cell:
                 pygame.draw.rect(screen, (100,100,100), ((shadow.x + x) * GRID_SIZE + GRID_OFFSET_X, (shadow.y + y) * GRID_SIZE, GRID_SIZE, GRID_SIZE), 2)
 
-# Instant Drop
+#Instant Drop
 def instant_drop(grid, piece, score):
     while not check_collision(grid, piece, dy=1):
         piece.y += 1
     merge_block(grid, piece)
     return clear_lines(grid, score)
 
-# Draw the block
+#Draw the block
 def draw_block(screen, color, x, y):
     # Border Color
     darker_color = (max(0, color[0] - 80), max(0, color[1] - 80), max(0, color[2] - 80))
@@ -162,14 +163,14 @@ def draw_block(screen, color, x, y):
     pygame.draw.rect(screen, darker_color, (x + border_width, y + border_width, GRID_SIZE - 2*border_width, GRID_SIZE - 2*border_width))
     pygame.draw.rect(screen, color, (x + 2*border_width, y + 2*border_width, GRID_SIZE - 4*border_width, GRID_SIZE - 4*border_width))
 
-# Draw Preview of Block
+#Draw Preview of Block
 def draw_preview(screen, piece, x_offset, y_offset):
     for y, row, in enumerate(piece.shape):
         for x, cell in enumerate(row):
             if cell:
                 draw_block(screen, piece.color, (x + x_offset) * GRID_SIZE, (y + y_offset) * GRID_SIZE)
 
-# Draw Button
+#Draw Button
 def draw_button(screen, text, x, y, width, height, inactive_color, active_color):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -187,7 +188,7 @@ def draw_button(screen, text, x, y, width, height, inactive_color, active_color)
     screen.blit(text_surf, text_rect)
     return False
 
-# Create a Start Screen
+#Create a Start Screen
 def start_screen(screen):
     # Add falling blocks in the background
     background_blocks = []
